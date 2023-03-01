@@ -16,6 +16,7 @@ function Counter(props) {
     //如果是个空数组，那么useEffect只会在首次加载时被执行一次。
     useEffect(() => {
             console.log(count, '更新后的count')
+            console.log('useEffect...')
         }, []
     )
 
