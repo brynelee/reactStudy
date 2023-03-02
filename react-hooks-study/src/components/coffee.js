@@ -28,7 +28,7 @@ function Coffee() {
             <ThemedContext.Provider value={themes.light}>
                 <Toolbar />
             </ThemedContext.Provider>
-            <p><h1>ActionToDo - using useReducer & useContext</h1></p>
+            <p><h1>TextContext - using useReducer & useContext</h1></p>
             <TextContext.Provider value={dispatch}>
                 <DisplayTextByButton value={stateContentDisplay.content}/>
             </TextContext.Provider>
