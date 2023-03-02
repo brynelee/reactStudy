@@ -54,7 +54,7 @@ function Counter(props) {
 
     return (
         <div>
-            <p>hook</p>
+            <p><h1>CounterHook - using useState & useEffect</h1></p>
             <p>{count}</p>
             <button onClick = {handleClick1}>计数按钮</button>
             <p>{tc.name}</p>

@@ -16,7 +16,7 @@ class CounterAA extends Component {
     render(){
         return (
             <div>
-                <p>class</p>
+                <p><h1>CounterClass</h1></p>
                 <p>{this.state.count}</p>
                 <button onClick = {() => {this.setCount(this.state.count)}}>按钮</button>
             </div>
