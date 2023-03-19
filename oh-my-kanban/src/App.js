@@ -4,7 +4,6 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import KanbanBoard from './KanbanBoard';
 import KanbanColumn from './KanbanColumn';
-import KanbanNewCard from './KanbanNewCard';
 
 
 const COLUMN_BG_COLORS = {
@@ -20,7 +19,7 @@ const COLUMN_KEY_ONGOING = 'ongoing';
 const COLUMN_KEY_DONE = 'done';
 
 function App() {  
-  const [showAdd, setShowAdd] = useState(false);
+
   const [todoList, setTodoList] = useState([
     { title: '开发任务-1', status: '2023-02-25 13:15' },
     { title: '开发任务-3', status: '2023-02-25 18:15' },
@@ -68,15 +67,12 @@ function App() {
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
 
-  //处理Add按钮
-  const handleAdd = (evt) => {
-    setShowAdd(true);
-  };
-
   //添加新任务提交时的处理，修改todoList数组，关闭Add组件的显示
   const handleSubmit = (title) => {
-    todoList.unshift( { title, status: new Date().toDateString() });
-    setShowAdd(false);
+    setTodoList( currentTodoList => [ 
+      { title, status: new Date().toDateString() },
+      ...currentTodoList
+    ]);
   };
 
   //记录拖拽过程的状态
@@ -116,20 +112,15 @@ function App() {
         ) : (<>
           <KanbanColumn 
             bgColor={COLUMN_BG_COLORS.todo} 
-            title={
-            <>
-              待处理<button onClick={handleAdd} 
-              disabled={showAdd}>&#8853; 添加新卡片</button>
-            </>
-            }
+            canAddNew
+            title="待处理"
             setDraggedItem={setDraggedItem}
             setIsDragSource = {(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
             setIsDragTarget = {(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
+            onAdd={handleSubmit}
             onDrop={handleDrop}
             cardList={todoList}
-          >
-              { showAdd && <KanbanNewCard onSubmit={ handleSubmit } /> }
-          </KanbanColumn>
+          />
           <KanbanColumn 
             bgColor={COLUMN_BG_COLORS.ongoing} 
             title="进行中"
