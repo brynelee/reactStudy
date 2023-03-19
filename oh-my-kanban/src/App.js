@@ -68,9 +68,9 @@ function App() {
   };
 
   //添加新任务提交时的处理，修改todoList数组，关闭Add组件的显示
-  const handleSubmit = (title) => {
+  const handleAdd = (newCard) => {
     setTodoList( currentTodoList => [ 
-      { title, status: new Date().toDateString() },
+      newCard,
       ...currentTodoList
     ]);
   };
@@ -117,7 +117,7 @@ function App() {
             setDraggedItem={setDraggedItem}
             setIsDragSource = {(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
             setIsDragTarget = {(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
-            onAdd={handleSubmit}
+            onAdd={handleAdd}
             onDrop={handleDrop}
             cardList={todoList}
           />
