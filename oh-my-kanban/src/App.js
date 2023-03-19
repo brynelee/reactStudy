@@ -38,7 +38,10 @@ function App() {
     { title: '测试任务-1', status: '2022-11-22 18:15' }
   ]);
   const [isLoading, setIsLoading] = useState(true);
+
+  //处理启动时数据加载
   useEffect(() => {
+    //加载本地存储的数据
     const data = window.localStorage.getItem(DATA_STORE_KEY);
     setTimeout(() => {
       if(data){
@@ -49,11 +52,14 @@ function App() {
       }
       setIsLoading(false);
     }, 1000);
+
+    //useEffect的清理函数
     return () => {
       console.log("useEffect clean up.");
     }
-  },[]); /* 依赖值数组为空时，useEffect的清楚函数只会在卸载组件时执行 */
+  },[]); /* 依赖值数组为空时，useEffect的清除函数只会在卸载组件时执行 */
 
+  //存储状态数据
   const handleSaveAll = () => {
     const data = JSON.stringify({
       todoList,
@@ -63,18 +69,23 @@ function App() {
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
 
-
+  //处理Add按钮
   const handleAdd = (evt) => {
     setShowAdd(true);
   };
+
+  //添加新任务提交时的处理，修改todoList数组，关闭Add组件的显示
   const handleSubmit = (title) => {
     todoList.unshift( { title, status: new Date().toDateString() });
     setShowAdd(false);
   };
+
+  //记录拖拽过程的状态
   const [draggedItem, setDraggedItem] = useState(null);
   const [dragSource, setDragSource] = useState(null);
   const [dragTarget, setDragTarget] = useState(null);
 
+  //处理拖拽的drop逻辑
   const handleDrop = (evt) => {
     if(!draggedItem || !dragSource || !dragTarget || dragSource === dragTarget){
       return;
@@ -112,17 +123,13 @@ function App() {
               disabled={showAdd}>&#8853; 添加新卡片</button>
             </>
             }
+            setDraggedItem={setDraggedItem}
             setIsDragSource = {(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
             setIsDragTarget = {(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
             onDrop={handleDrop}
+            cardList={todoList}
           >
               { showAdd && <KanbanNewCard onSubmit={ handleSubmit } /> }
-              {todoList.map(props => (
-                <KanbanCard 
-                key={props.title} 
-                onDragStart = {() => setDraggedItem(props)}
-                {...props}
-                />))}
           </KanbanColumn>
           <KanbanColumn 
             bgColor={COLUMN_BG_COLORS.ongoing} 
