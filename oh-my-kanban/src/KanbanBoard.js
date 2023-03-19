@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, {useState} from 'react';
 import { css } from '@emotion/react';
 import KanbanColumn from './KanbanColumn';
 

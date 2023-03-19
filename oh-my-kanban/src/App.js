@@ -62,11 +62,8 @@ function App() {
   };
 
   //添加新任务提交时的处理，修改todoList数组，关闭Add组件的显示
-  const handleAdd = (newCard) => {
-    setTodoList( currentTodoList => [ 
-      newCard,
-      ...currentTodoList
-    ]);
+  const handleAdd = (column, newCard) => {
+    updaters[column]((currentStat) => [newCard, ...currentStat]);
   };
 
   const handleRemove = (column, cardToRemove) => {
