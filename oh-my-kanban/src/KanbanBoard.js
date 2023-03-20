@@ -59,6 +59,7 @@ export default function KanbanBoard({
             setIsDragTarget = {(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
             onAdd={onAdd.bind(null, COLUMN_KEY_TODO)}
             onDrop={handleDrop}
+            onRemove={onRemove.bind(null, COLUMN_KEY_TODO)}
             cardList={todoList}
           />
           <KanbanColumn 
@@ -68,6 +69,7 @@ export default function KanbanBoard({
             setIsDragSource = {(isSrc) => setDragSource(isSrc ? COLUMN_KEY_ONGOING : null)}
             setIsDragTarget = {(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_ONGOING : null)}
             onDrop={handleDrop}
+            onRemove={onRemove.bind(null, COLUMN_KEY_ONGOING)}
             cardList={ongoingList}
 
           />
@@ -78,6 +80,7 @@ export default function KanbanBoard({
             setIsDragSource = {(isSrc) => setDragSource(isSrc ? COLUMN_KEY_DONE : null)}
             setIsDragTarget = {(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_DONE : null)}
             onDrop={handleDrop}
+            onRemove={onRemove.bind(null, COLUMN_KEY_DONE)}
             cardList={doneList}
           />  
         </>)}
